@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { serverEndpoint, serverLiveEndpoint } from "../data/config";
 import { Router } from "../routes";
 
 const useGuard = (authGuard = true) => {
 	const [authState, setAuthState] = useState(true);
 
 	async function isAuth() {
-		const response = await fetch("http://localhost:4040/me", {
+		const host =
+			process.env.NODE_ENV !== "production" ? serverEndpoint : serverLiveEndpoint;
+		const response = await fetch(`${host}/me`, {
 			credentials: "include"
 		});
 		const { currentUser } = await response.json();
