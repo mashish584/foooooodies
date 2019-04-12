@@ -1,0 +1,33 @@
+# import * from './generated/prisma.graphql'
+
+scalar Upload
+
+type AuthPayload {
+	message: String
+	token: String
+}
+
+type Query {
+	foods(skip: Int, first: Int): [Food!]!
+	foodsConnection(where: FoodWhereInput): FoodConnection!
+	food(id: ID!): Food
+	currentUser: User
+	bucket: [BucketItem!]!
+	orders: [Order!]!
+}
+
+type Mutation {
+	createUser(fullname: String!, email: String!, password: String!): User!
+	authUser(email: String!, password: String!): AuthPayload
+	userLogout: AuthPayload
+	addFood(
+		name: String!
+		price: Int!
+		description: String!
+		tags: String!
+		upload: Upload
+	): Food
+	addFoodToBucket(foodId: ID!, action: String!): BucketItem
+	removeFoodFromBucket(bucketId: ID!): BucketItem
+	checkoutBucket(token: String!): Order
+}

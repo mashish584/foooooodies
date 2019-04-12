@@ -1,0 +1,7 @@
+projects:
+   foodies:
+      schemaPath: src/schema.graphql
+   foodies-server:
+      schemaPath: src/generated/prisma.graphql
+      extensions:
+         prisma: prisma/prisma.yml

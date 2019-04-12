@@ -1,0 +1,47 @@
+type User {
+	id: ID! @unique
+	fullname: String!
+	email: String! @unique
+	password: String!
+	token: String
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
+
+type Food {
+	id: ID! @unique
+	name: String!
+	price: Int!
+	description: String!
+	tags: String
+	image: String!
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @updatedAt
+}
+
+type BucketItem {
+	id: ID! @unique
+	qty: Int! @default(value: 1)
+	food: Food
+	user: User
+}
+
+type OrderItem {
+	id: ID! @unique
+	name: String!
+	price: Float!
+	image: String
+	qty: Int!
+}
+
+type Order {
+	id: ID! @unique
+	items: [OrderItem!]!
+	transactionId: String!
+	amount: Float!
+	status: String!
+	user: User!
+	receipt: String!
+	createdAt: DateTime! @createdAt
+	updatedAt: DateTime! @createdAt
+}
