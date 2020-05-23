@@ -1,4 +1,4 @@
-const { forwardTo } = require("prisma-binding");
+const { forwardTo } = require('prisma-binding');
 
 exports.currentUser = (parent, args, ctx, info) => {
 	const { request: req, db } = ctx;
@@ -11,33 +11,37 @@ exports.currentUser = (parent, args, ctx, info) => {
 
 exports.foods = (parent, args, ctx, info) =>
 	ctx.db.query.foods(
-		{ skip: args.skip, first: args.first, orderBy: "createdAt_DESC" },
-		info
+		{
+			skip: args.skip,
+			first: args.first,
+			orderBy: 'createdAt_DESC',
+			where: { isApproved: true },
+		},
+		info,
 	);
 
-exports.food = (parent, { id }, ctx, info) =>
-	ctx.db.query.food({ where: { id } }, info);
+exports.food = (parent, { id }, ctx, info) => ctx.db.query.food({ where: { id } }, info);
 
-exports.foodsConnection = forwardTo("db");
+exports.foodsConnection = forwardTo('db');
 
 exports.bucket = (parent, args, ctx, info) => {
 	// TODO: Get user id from request context and throw error immediately if doesn't exist
 	const { userId } = ctx.request;
-	if (!userId) throw new Error("Please SignIn..");
+	if (!userId) throw new Error('Please SignIn..');
 
 	return ctx.db.query.bucketItems(
-		{ where: { user: { id: userId } }, orderBy: "createdAt_DESC" },
-		info
+		{ where: { user: { id: userId } }, orderBy: 'createdAt_DESC' },
+		info,
 	);
 };
 
 exports.orders = (parent, args, ctx, info) => {
 	// TODO: Get user id from request context and throw error immediately if doesn't exist
 	const { userId } = ctx.request;
-	if (!userId) throw new Error("Please SignIn..");
+	if (!userId) throw new Error('Please SignIn..');
 
 	return ctx.db.query.orders(
-		{ where: { user: { id: userId } }, orderBy: "createdAt_DESC" },
-		info
+		{ where: { user: { id: userId } }, orderBy: 'createdAt_DESC' },
+		info,
 	);
 };

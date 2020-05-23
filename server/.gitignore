@@ -1,2 +1,2 @@
-secret.env
 node_modules
+.env

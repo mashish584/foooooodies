@@ -1,17 +1,12 @@
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
-import styled from "styled-components";
-import Head from "next/head";
-import {
-	ButtonAddBucketStyle,
-	FoodInfoStyle,
-	TagListStyle,
-	flexy
-} from "../styles/_index";
-import AddToBucket from "./Util/AddToBucket";
-import Alert from "./Util/Alert";
-import { formatMoney } from "../util";
-import { imageKitEndpoint } from "../data/config";
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import styled from 'styled-components';
+import Head from 'next/head';
+import { ButtonAddBucketStyle, FoodInfoStyle, TagListStyle, flexy } from '../styles/_index';
+import AddToBucket from './Util/AddToBucket';
+import Alert from './Util/Alert';
+import { formatMoney } from '../util';
+import { imageKitEndpoint } from '../data/config';
 
 const ActionDivStyle = styled.div`
 	${flexy};
@@ -65,16 +60,14 @@ const FoodInfo = ({ id }) => {
 								<h2>{food.name}</h2>
 								<p>{food.description}</p>
 								<TagListStyle>
-									{food.tags.split(",").map((tag, i) => {
-										if (tag !== "") {
+									{food.tags.split(',').map((tag, i) => {
+										if (tag !== '') {
 											return <li key={i}>{tag}</li>;
 										}
 									})}
 								</TagListStyle>
 								<ActionDivStyle justifyContent="space-between">
-									<span className="price">
-										{formatMoney.format(food.price)}
-									</span>
+									<span className="price">{formatMoney.format(food.price)}</span>
 									<AddToBucket foodId={food.id}>
 										{(bucketMutation, { loading, error }) => (
 											<>
@@ -85,9 +78,7 @@ const FoodInfo = ({ id }) => {
 													color="#222"
 													radius="10px"
 													boxShadow="0 5px 10px rgba(0,0,0,0.1)"
-													onClick={e =>
-														addFoodInBucket(e, bucketMutation)
-													}
+													onClick={(e) => addFoodInBucket(e, bucketMutation)}
 													disabled={loading}
 												>
 													Add To Bucket

@@ -1,5 +1,5 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: data-model.prisma
 hooks:
-   post-deploy:
-      - graphql get-schema -p foodies-server
+  post-deploy:
+    - graphql get-schema -p foodies-server

@@ -1,9 +1,9 @@
-import { ApolloClient, InMemoryCache } from "apollo-boost";
-import { createHttpLink } from "apollo-link-http";
-import { setContext } from "apollo-link-context";
-import { createUploadLink } from "apollo-upload-client";
-import fetch from "isomorphic-unfetch";
-import { serverEndpoint, serverLiveEndpoint } from "../data/config";
+import { ApolloClient, InMemoryCache } from 'apollo-boost';
+import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
+import { createUploadLink } from 'apollo-upload-client';
+import fetch from 'isomorphic-unfetch';
+import { serverEndpoint, serverLiveEndpoint } from '../data/config';
 
 let apolloClient = null;
 
@@ -14,25 +14,23 @@ if (!process.browser) {
 
 function create(initialState, { getToken, headers }) {
 	const httpLink = createHttpLink({
-		uri:
-			process.env.NODE_ENV !== "production" ? serverEndpoint : serverLiveEndpoint,
-		credentials: "include",
-		headers
+		uri: process.env.NODE_ENV !== 'production' ? serverEndpoint : serverLiveEndpoint,
+		credentials: 'include',
+		headers,
 	});
 
 	const uploadLink = createUploadLink({
-		uri:
-			process.env.NODE_ENV !== "production" ? serverEndpoint : serverLiveEndpoint,
-		credentials: "include",
-		headers
+		uri: process.env.NODE_ENV !== 'production' ? serverEndpoint : serverLiveEndpoint,
+		credentials: 'include',
+		headers,
 	});
 
 	const authLink = setContext((_, { headers }) => {
 		const token = getToken();
 		return {
 			headers: {
-				...headers
-			}
+				...headers,
+			},
 		};
 	});
 
@@ -41,7 +39,7 @@ function create(initialState, { getToken, headers }) {
 		connectToDevTools: process.browser,
 		ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
 		link: authLink.concat(uploadLink),
-		cache: new InMemoryCache().restore(initialState || {})
+		cache: new InMemoryCache().restore(initialState || {}),
 	});
 }
 

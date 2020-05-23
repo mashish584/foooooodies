@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/ashish-mehra-4edcd5/foodies/dev
-# timestamp: Sat Apr 06 2019 16:04:09 GMT+0530 (India Standard Time)
+# timestamp: Sat May 23 2020 11:59:27 GMT+0530 (India Standard Time)
 
 type AggregateBucketItem {
   count: Int!
@@ -31,6 +31,8 @@ type BucketItem implements Node {
   qty: Int!
   food: Food
   user: User
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -64,15 +66,17 @@ enum BucketItemOrderByInput {
   id_DESC
   qty_ASC
   qty_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type BucketItemPreviousValues {
   id: ID!
   qty: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type BucketItemSubscriptionPayload {
@@ -193,6 +197,50 @@ input BucketItemWhereInput {
 
   """All values greater than or equal the given value."""
   qty_gte: Int
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   food: FoodWhereInput
   user: UserWhereInput
 }
@@ -210,6 +258,7 @@ type Food implements Node {
   description: String!
   tags: String
   image: String!
+  isApproved: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -231,6 +280,7 @@ input FoodCreateInput {
   description: String!
   tags: String
   image: String!
+  isApproved: Boolean
 }
 
 input FoodCreateOneInput {
@@ -260,6 +310,8 @@ enum FoodOrderByInput {
   tags_DESC
   image_ASC
   image_DESC
+  isApproved_ASC
+  isApproved_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -273,6 +325,7 @@ type FoodPreviousValues {
   description: String!
   tags: String
   image: String!
+  isApproved: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -320,6 +373,7 @@ input FoodUpdateDataInput {
   description: String
   tags: String
   image: String
+  isApproved: Boolean
 }
 
 input FoodUpdateInput {
@@ -328,6 +382,7 @@ input FoodUpdateInput {
   description: String
   tags: String
   image: String
+  isApproved: Boolean
 }
 
 input FoodUpdateManyMutationInput {
@@ -336,6 +391,7 @@ input FoodUpdateManyMutationInput {
   description: String
   tags: String
   image: String
+  isApproved: Boolean
 }
 
 input FoodUpdateOneInput {
@@ -583,6 +639,10 @@ input FoodWhereInput {
 
   """All values not ending with the given string."""
   image_not_ends_with: String
+  isApproved: Boolean
+
+  """All values that are not equal to given value."""
+  isApproved_not: Boolean
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -731,6 +791,8 @@ type OrderItem implements Node {
   price: Float!
   image: String
   qty: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -776,10 +838,10 @@ enum OrderItemOrderByInput {
   image_DESC
   qty_ASC
   qty_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type OrderItemPreviousValues {
@@ -788,6 +850,8 @@ type OrderItemPreviousValues {
   price: Float!
   image: String
   qty: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input OrderItemScalarWhereInput {
@@ -963,6 +1027,50 @@ input OrderItemScalarWhereInput {
 
   """All values greater than or equal the given value."""
   qty_gte: Int
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type OrderItemSubscriptionPayload {
@@ -1231,6 +1339,50 @@ input OrderItemWhereInput {
 
   """All values greater than or equal the given value."""
   qty_gte: Int
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 input OrderItemWhereUniqueInput {
